@@ -1,0 +1,60 @@
+<div class="page page-center">
+    <div class="container container-tight py-4">
+        <div class="card card-md">
+            <div class="card-body">
+                <h2 class="h2 text-center mb-4">Get a Magic Link in your Inbox</h2>
+                <form autocomplete="off" novalidate="">
+                    <div class="mb-3">
+                        <label class="form-label">Email address</label>
+                        <input type="email" class="form-control" placeholder="your@email.com" autocomplete="off">
+                    </div>
+                    <div class="form-footer">
+                        <button type="button" id="submit-btn" class="btn btn-primary w-100" onclick="sendMagicLink()">Send Now</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+    const sendMagicLink = async () => {
+        try {
+
+            const email = $('input[type="email"]').val();
+
+            if (!email) {
+                alert('Please enter a valid email address.');
+                return;
+            };
+
+            const elemHTML = $('#submit-btn').html();
+            
+            $('#submit-btn').html(`
+                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                    Processing
+                `);
+
+            const response = await $.ajax({
+                url: '/send-magic-link',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    email,
+                })
+            });
+
+            $('#submit-btn').html(elemHTML); 
+        } catch (error) {
+            console.error('Error sending magic link:', error);
+        }
+    };
+
+
+    $('form').on('submit', function (e) {
+        e.preventDefault();
+        sendMagicLink();
+    });
+</script>

@@ -1,6 +1,10 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const handlebars = require('handlebars');
+const fs = require('fs').promises;
+const path = require('path');
+
 const { isValidEmail } = require('../modules/checkValidForm');
 
 exports.renderLoginPage = async (req, res) => {
@@ -15,26 +19,35 @@ exports.renderLoginPage = async (req, res) => {
 };
 
 function generateMagicToken(email) {
-  return jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '60m' });
+    return jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '60m' });
 }
 
-async function sendMagicLinkEmail(email, link) {
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.zoho.eu',
-    port: 465,
-    secure: true,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    }
-  });
+async function sendMagicLinkEmail(name, email, link) {
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.zoho.eu',
+        port: 465,
+        secure: true,
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+        }
+    });
 
-  await transporter.sendMail({
-    from: `"iLearningHubb" <${process.env.EMAIL_USER}>`,
-    to: email,
-    subject: 'Your Magic Login Link',
-    html: `<a href="${link}">Click here to sign in</a>`
-  });
+    const templatePath = path.join(__dirname, '../views/emails/magicLink.hbs');
+    const templateSource = await fs.readFile(templatePath, 'utf8');
+    const compiledTemplate = handlebars.compile(templateSource);
+
+    const html = compiledTemplate({
+        name,
+        magicLink: link,
+    });
+
+    await transporter.sendMail({
+        from: `"iLearningHubb" <${process.env.EMAIL_USER}>`,
+        to: email,
+        subject: 'Login to Dashboard - Magic Link',
+        html,
+    });
 }
 
 exports.sendMagicLink = async (req, res) => {
@@ -56,8 +69,8 @@ exports.sendMagicLink = async (req, res) => {
         }
 
         const token = generateMagicToken(email);
-        const link = `${process.env.DOMAIN_URL}/auth/magic-login?token=${token}`;
-        await sendMagicLinkEmail(email, link);
+        const link = `${process.env.DOMAIN_URL}/auth-magic-link?token=${token}`;
+        await sendMagicLinkEmail(user.name, user.email, link);
         res.json({ success: true });
 
     } catch (error) {
@@ -70,11 +83,22 @@ exports.sendMagicLink = async (req, res) => {
 };
 
 exports.testMagicLink = async (req, res) => {
-  try {
-    const token = req.query.token;
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    res.send('Magic link verified for ' + decoded.email);
-  } catch (e) {
-    res.status(400).send('Invalid or expired link');
-  }
+    try {
+        const token = req.query.token;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        let user = await User.findOne({ email: decoded.email });
+        
+        if (!user) {
+            res.status(404).send('User not found');
+            return;
+        };
+
+        req.session.userId = user._id;
+        req.session.email = user.email;
+
+        res.redirect('/dashboard');
+    } catch (e) {
+        res.status(400).send('Invalid or expired link');
+    }
 };

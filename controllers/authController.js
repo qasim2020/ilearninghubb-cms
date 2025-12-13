@@ -93,6 +93,8 @@ exports.testMagicLink = async (req, res) => {
         };
         req.session.userId = user._id;
         req.session.email = user.email;
+        req.session.name = user.name;
+        
         req.session.save(() => {
             res.redirect('/dashboard');
         });

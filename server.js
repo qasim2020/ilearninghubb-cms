@@ -7,11 +7,12 @@ const homeRoutes = require("./routes/homeRoutes")
 const session = require('express-session');
 const MongoStore = require("connect-mongo");
 const path = require('path');
+const hbsHelpers = require('./modules/helpers');
 
 dotenv.config()
 connectDB()
 
-const app = express()
+const app = express();
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -32,7 +33,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static("public"))
 
-app.engine("hbs", exphbs.engine({ extname: ".hbs", defaultLayout: "main" }))
+app.engine("hbs", exphbs.engine({ extname: ".hbs", defaultLayout: "main", helpers: hbsHelpers  }))
 app.set("view engine", "hbs")
 app.set("views", "./views")
 

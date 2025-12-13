@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const requireLogin = require('../modules/authenticate');
+const homeController = require('../controllers/homeController');
 
 router.get("/", (req, res) => {
     if (!req.session.user) {
@@ -9,6 +10,7 @@ router.get("/", (req, res) => {
     res.redirect("/dashboard")
 });
 
-router.get("/dashboard", requireLogin, (req, res) => res.render("home") )
+router.get("/dashboard", requireLogin, homeController.getDashboard);
+router.post('/toggleSidebar', requireLogin, homeController.toggleSideBar);
 
 module.exports = router;

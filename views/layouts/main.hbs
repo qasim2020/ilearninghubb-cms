@@ -141,7 +141,7 @@
   <script src="https://cdn.jsdelivr.net/gh/RubaXa/Sortable/Sortable.min.js"></script>
 
   <div class="page">
-    <button class="cursor-pointer btn btn-sm btn-primary-outline btn-icon d-none d-lg-flex sidebar-toggler collapsed"
+    <button class="cursor-pointer btn btn-sm btn-primary-outline btn-icon d-none d-lg-flex sidebar-toggler {{#if (eq sidebarCollapsed true)}}collapsed{{/if}}"
       aria-expanded="false" style="" onclick="toggleSidebar(false)">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -213,7 +213,7 @@
       </div>
     </header>
 
-    <aside class="navbar d-print-none navbar-vertical navbar-expand-lg navbar d-lg-none">
+    <aside class="navbar d-print-none navbar-vertical navbar-expand-lg navbar {{#if (eq sidebarCollapsed true)}}d-lg-none{{/if}}">
       <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-menu"
           aria-controls="sidebar-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -420,7 +420,7 @@
       </div>
     </aside>
 
-    <aside class="collapsed-sidebar d-print-none d-none d-lg-flex collapsed">
+    <aside class="collapsed-sidebar d-print-none d-none d-lg-flex {{#if (neq sidebarCollapsed true)}}collapsed{{/if}}">
       <div class="container-fluid">
         <h1 class="navbar-brand navbar-brand-autodark m-auto">
           <a href="/dashboard">
@@ -562,6 +562,8 @@
   <script src="https://cdn.jsdelivr.net/npm/fslightbox/index.js"></script>
 
   <script>
+
+    let sidebarCollapsed = `{{sidebarCollapsed}}`;
 
     const toggleSidebar = function (firstCall) {
       $('aside.navbar').toggleClass("d-lg-none");

@@ -2,12 +2,14 @@ const express = require("express")
 const exphbs = require("express-handlebars")
 const dotenv = require("dotenv")
 const connectDB = require("./config/db")
-const authRoutes = require("./routes/authRoutes")
-const homeRoutes = require("./routes/homeRoutes")
 const session = require('express-session');
 const MongoStore = require("connect-mongo");
 const path = require('path');
 const hbsHelpers = require('./modules/helpers');
+
+const authRoutes = require("./routes/authRoutes")
+const homeRoutes = require("./routes/homeRoutes")
+const eventRoutes = require("./routes/eventRoutes")
 
 dotenv.config()
 connectDB()
@@ -43,7 +45,8 @@ app.use('/robots.txt', express.static(path.join(__dirname, 'static/robots.txt'))
 
 app.use(authRoutes);
 app.use(homeRoutes);
+app.use(eventRoutes);
 
-app.listen(3000, () => {
-  console.log("Server is running on http://localhost:3000")
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on http://localhost:${process.env.PORT}`)
 })

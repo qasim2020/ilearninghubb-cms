@@ -70,8 +70,9 @@ exports.sendMagicLink = async (req, res) => {
 
         const token = generateMagicToken(email);
         const link = `${process.env.DOMAIN_URL}/auth-magic-link?token=${token}`;
-        await sendMagicLinkEmail(user.name, user.email, link);
-        res.json({ success: true });
+        // await sendMagicLinkEmail(user.name, user.email, link);
+        // res.json({ success: true });
+        res.json({ link });
 
     } catch (error) {
         console.log(error);

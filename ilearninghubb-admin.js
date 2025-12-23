@@ -40,7 +40,8 @@ app.set("view engine", "hbs")
 app.set("views", "./views")
 
 app.use('/tabler', express.static(path.join(__dirname, 'node_modules', '@tabler', 'core', 'dist')));
-app.use(express.static("public"))
+app.use(express.static("public"));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use('/robots.txt', express.static(path.join(__dirname, 'static/robots.txt')));
 
 app.use(authRoutes);

@@ -19,6 +19,7 @@ exports.toggleSideBar = async (req, res) => {
 exports.getDashboard = async (req, res) => {
     try {
         res.render('home', {
+            activeMenu: 'dashboard',
             userId: req.session.userId,
             userName: req.session.name,
             sidebarCollapsed: req.session.sidebarCollapsed ? req.session.sidebarCollapsed : false,

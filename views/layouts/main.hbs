@@ -12,6 +12,7 @@
   <link href="/tabler/css/tabler-payments.min.css?1692870487" rel="stylesheet" />
   <link href="/tabler/css/tabler-vendors.min.css?1692870487" rel="stylesheet" />
   <link href="/tabler/css/demo.min.css?1692870487" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/theme/dark.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
 
   <style>
@@ -139,6 +140,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/gh/RubaXa/Sortable/Sortable.min.js"></script>
+  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
   <div class="page">
     <button
@@ -271,7 +273,7 @@
         <div class="collapse navbar-collapse" id="sidebar-menu">
           <ul class="navbar-nav pt-lg-3">
             <li class="nav-item">
-              <a class="nav-link" href="/dashboard">
+              <a class="nav-link {{#if (eq 'dashboard' activeMenu)}} bg-azure-lt {{/if}}" href="/dashboard">
                 <span class="nav-link-icon d-lg-inline-block">
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
                     stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -288,7 +290,8 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="/programs" data-bs-toggle="tooltip" data-bs-title="Programs">
+              <a class="nav-link {{#if (eq 'programs' activeMenu)}} bg-azure-lt {{/if}}" href="/programs"
+                data-bs-toggle="tooltip" data-bs-title="Programs">
                 <span class="nav-link-icon d-lg-inline-block">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -307,7 +310,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="/activities">
+              <a class="nav-link {{#if (eq 'activities' activeMenu)}} bg-azure-lt {{/if}}" href="/activities">
                 <span class="nav-link-icon d-lg-inline-block">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -330,7 +333,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="/settings">
+              <a class="nav-link {{#if (eq 'settings' activeMenu)}} bg-azure-lt {{/if}}" href="/settings">
                 <span class="nav-link-icon d-lg-inline-block">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -362,7 +365,8 @@
         <div class="">
           <ul class="navbar-nav pt-lg-3">
             <li class="nav-item">
-              <a class="nav-link" href="/dashboard" data-bs-toggle="tooltip" data-bs-title="Dashboard">
+              <a class="nav-link {{#if (eq 'dashboard' activeMenu)}} bg-azure-lt {{/if}}" href="/dashboard"
+                data-bs-toggle="tooltip" data-bs-title="Dashboard">
                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
                     stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -376,7 +380,8 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="/programs" data-bs-toggle="tooltip" data-bs-title="Programs">
+              <a class="nav-link {{#if (eq 'programs' activeMenu)}} bg-azure-lt {{/if}}" href="/programs"
+                data-bs-toggle="tooltip" data-bs-title="Programs">
                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -392,7 +397,8 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="/activities" data-bs-toggle="tooltip" data-bs-title="Activities">
+              <a class="nav-link {{#if (eq 'activities' activeMenu)}} bg-azure-lt {{/if}}" href="/activities"
+                data-bs-toggle="tooltip" data-bs-title="Activities">
                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -412,7 +418,8 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="/settings" data-bs-toggle="tooltip" data-bs-title="Settings">
+              <a class="nav-link {{#if (eq 'settings' activeMenu)}} bg-azure-lt {{/if}}" href="/settings"
+                data-bs-toggle="tooltip" data-bs-title="Settings">
                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -458,6 +465,7 @@
   <script src="/tabler/js/tabler.min.js"></script>
   <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fslightbox/index.js"></script>
+
 
   <script>
 

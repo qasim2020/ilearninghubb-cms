@@ -122,13 +122,31 @@
             console.error(error);
         });
 
+
+
     $("#programImageBox").on("click", function () {
         $("#programImageInput").click();
     });
 
+    let previousImageUrl = null;
+
     $("#programImageInput").on("change", function () {
         var file = this.files[0];
         if (!file) return;
+
+        if (previousImageUrl) {
+            $.ajax({
+                url: "/delete-program-image",
+                type: "POST",
+                data: { imageUrl: previousImageUrl },
+                success: function (res) {
+                    console.log("Previous image deleted");
+                },
+                error: function (err) {
+                    console.log("Failed to delete previous image");
+                }
+            });
+        }
 
         var formData = new FormData();
         formData.append("programImage", file);
@@ -144,6 +162,7 @@
             },
             success: function (res) {
                 $("#programImageBox").html('<img src="' + res.imageUrl + '" style="height:100%; width:100%; object-fit:cover; border-radius:0.25rem;">');
+                previousImageUrl = res.imageUrl;
             },
             error: function (err) {
                 $("#programImageBox").html('<span style="font-size:2rem; color:#6c757d;">+</span>');

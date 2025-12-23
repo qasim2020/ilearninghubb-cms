@@ -9,7 +9,7 @@ const hbsHelpers = require('./modules/helpers');
 
 const authRoutes = require("./routes/authRoutes")
 const homeRoutes = require("./routes/homeRoutes")
-const eventRoutes = require("./routes/eventRoutes")
+const programRoutes = require("./routes/programRoutes")
 
 dotenv.config()
 connectDB()
@@ -45,7 +45,7 @@ app.use('/robots.txt', express.static(path.join(__dirname, 'static/robots.txt'))
 
 app.use(authRoutes);
 app.use(homeRoutes);
-app.use(eventRoutes);
+app.use(programRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on http://localhost:${process.env.PORT}`)

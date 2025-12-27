@@ -29,6 +29,7 @@
                         <option value="">Select</option>
                         <option value="boys">Boys</option>
                         <option value="girls">Girls</option>
+                        <option value="both">Both</option>
                     </select>
                 </div>
 
@@ -56,10 +57,10 @@
 
                 <div class="mb-3">
                     <label class="form-label">Status</label>
-                    <div class="form-selectgroup-boxes row mb-3 customer-status">
+                    <div class="form-selectgroup-boxes row mb-3 program-status">
                         <div class="col-lg-6">
                             <label class="form-selectgroup-item">
-                                <input type="radio" name="status" value="active" class="form-selectgroup-input" />
+                                <input type="radio" name="status" value="active" class="form-selectgroup-input" checked=""/>
                                 <span class="form-selectgroup-label d-flex align-items-center p-3">
                                     <span class="me-3">
                                         <span class="form-selectgroup-check"></span>
@@ -73,8 +74,7 @@
                         </div>
                         <div class="col-lg-6">
                             <label class="form-selectgroup-item">
-                                <input type="radio" name="status" value="blocked" class="form-selectgroup-input" {{#if
-                                    (eq 'blocked' data.customer.status)}} checked="" {{/if}} />
+                                <input type="radio" name="status" value="in-active" class="form-selectgroup-input"/>
                                 <span class="form-selectgroup-label d-flex align-items-center p-3">
                                     <span class="me-3">
                                         <span class="form-selectgroup-check"></span>
@@ -94,7 +94,7 @@
                 <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
                     Cancel
                 </a>
-                <a href="#" class="btn btn-primary ms-auto" onclick="saveNewUser(this)">
+                <a href="#" class="btn btn-primary ms-auto" onclick="saveNewProgram(this)">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
                         stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -110,14 +110,23 @@
 </div>
 
 <script>
+    
+    let programEditor, featuresEditor;
+
     ClassicEditor
         .create(document.querySelector('#programDescription'))
+        .then(editor => {
+            programEditor = editor;
+        })
         .catch(error => {
             console.error(error);
         });
 
     ClassicEditor
         .create(document.querySelector('#specialFeatures'))
+        .then(editor => {
+            featuresEditor = editor;
+        })
         .catch(error => {
             console.error(error);
         });
@@ -170,4 +179,42 @@
             }
         });
     });
+
+    const saveNewProgram = (btn) => {
+        const modal = $(btn).closest('.modal');
+
+        const imageUrl = $("#programImageBox img").attr("src");
+        const title = modal.find('input[name="title"]').val().trim();
+        const age = modal.find('input[name="ageRange"]').val().trim();
+        const duration = modal.find('input[name="duration"]').val().trim();
+        const description = programEditor.getData().trim();
+        const specialFeatures = featuresEditor.getData().trim();
+        const gender = modal.find('select[name="gender"]').val();
+        const status = $("input[name='status']:checked").val();
+
+        const data = {
+            imageUrl,
+            title,
+            age,
+            duration,
+            description,
+            specialFeatures,
+            gender,
+            status,
+        };
+
+        $.ajax({
+            url: "/programs",
+            type: "POST",
+            data,
+            success: function (res) {
+                alert("Program created successfully");
+                window.location.href = "/programs";
+            },
+            error: function (err) {
+                console.log(err);
+                alert("Failed to create program");
+            }
+        });
+    };
 </script>

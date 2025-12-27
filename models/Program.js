@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const ProgramSchema = new mongoose.Schema({
-    bannerUrl: String,
+    imageUrl: String,
     title: String,
     gender: {
         type: String,
-        enum: ["boys", "girls"]
+        enum: ["boys", "girls", "both"],
     },
-    description: String,    // html
-    specialFeatures: String, // html
+    description: String,
+    specialFeatures: String,
     ageRange: String,
     duration: String,
     isActive: {

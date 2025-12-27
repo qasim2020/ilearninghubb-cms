@@ -14,7 +14,13 @@ const storage = multer.diskStorage({
         cb(null, "uploads/"); 
     },
     filename: function(req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
+        const originalName = file.originalname;
+        const ext = path.extname(originalName);
+        const baseName = path.basename(originalName, ext);
+
+        const safeName = baseName.replace(/\s+/g, "-").toLowerCase();
+
+        cb(null, `${safeName}-${Date.now()}${ext}`);
     }
 });
 const upload = multer({ storage: storage });
@@ -40,5 +46,11 @@ router.post("/delete-program-image", (req, res) => {
 });
 
 router.get("/programs", requireLogin, programController.programs);
+router.post("/programs", requireLogin, programController.createProgram);
+router.get("/getEditProgramModal/:id", requireLogin, programController.editProgramModal);
+// router.get("/programs/new", requireLogin, programController.newProgramForm);
+// router.get("/programs/:id/edit", requireLogin, programController.editProgramForm);
+// router.post("/programs/:id/edit", requireLogin, programController.updateProgram);
+// router.post("/programs/:id/delete", requireLogin, programController.deleteProgram);
 
 module.exports = router;

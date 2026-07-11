@@ -390,25 +390,6 @@
 
 
             <li class="nav-item">
-              <a class="nav-link {{#if (eq 'pages' activeMenu)}} bg-azure-lt {{/if}}" href="/pages">
-                <span class="nav-link-icon d-lg-inline-block">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-file-text">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
-                    <path d="M9 9l1 0" />
-                    <path d="M9 13l6 0" />
-                    <path d="M9 17l6 0" />
-                  </svg>
-                </span>
-                <span class="nav-link-title">Pages</span>
-              </a>
-            </li>
-
-
-            <li class="nav-item">
               <a class="nav-link {{#if (eq 'blogs' activeMenu)}} bg-azure-lt {{/if}}" href="/blogs">
                 <span class="nav-link-icon d-lg-inline-block">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -427,6 +408,36 @@
             </li>
 
             <li class="nav-item">
+              <a class="nav-link {{#if (eq 'subscriptions' activeMenu)}} bg-azure-lt {{/if}}" href="/subscriptions">
+                <span class="nav-link-icon d-lg-inline-block">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-mail">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <polyline points="3 7 12 13 21 7" />
+                  </svg>
+                </span>
+                <span class="nav-link-title">Subscriptions</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link {{#if (eq 'team' activeMenu)}} bg-azure-lt {{/if}}" href="/team">
+                <span class="nav-link-icon d-lg-inline-block">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-users">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                    <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                  </svg>
+                </span>
+                <span class="nav-link-title">Team</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
               <a class="nav-link {{#if (eq 'tickets' activeMenu)}} bg-azure-lt {{/if}}" href="/tickets">
                 <span class="nav-link-icon d-lg-inline-block">
                   <span class="ticket-icon-wrapper">
@@ -441,23 +452,6 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link {{#if (eq 'team' activeMenu)}} bg-azure-lt {{/if}}" href="/team">
-                <span class="nav-link-icon d-lg-inline-block">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-users-group">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M10 13a3 3 0 1 0 -6 0v1h6v-1z" />
-                    <path d="M7 10a3 3 0 1 0 0 -6a3 3 0 0 0 0 6z" />
-                    <path d="M20 21v-1a4 4 0 0 0 -4 -4h-5" />
-                    <path d="M14 7a3 3 0 1 0 0 -6" />
-                  </svg>
-                </span>
-                <span class="nav-link-title">Team</span>
-              </a>
-            </li>
-
-            <li class="nav-item">
               <a class="nav-link {{#if (eq 'users' activeMenu)}} bg-azure-lt {{/if}}" href="/users">
                 <span class="nav-link-icon d-lg-inline-block">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-treadmill"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 3a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M3 14l4 1l.5 -.5" /><path d="M12 18v-3l-3 -2.923l.75 -5.077" /><path d="M6 10v-2l4 -1l2.5 2.5l2.5 .5" /><path d="M21 22a1 1 0 0 0 -1 -1h-16a1 1 0 0 0 -1 1" /><path d="M18 21l1 -11l2 -1" /></svg>
@@ -465,19 +459,6 @@
                 <span class="nav-link-title">
                   Users
                 </span>
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link {{#if (eq 'subscriptions' activeMenu)}} bg-azure-lt {{/if}}" href="/subscriptions">
-                <span class="nav-link-icon d-lg-inline-block">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-mail">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <rect x="3" y="5" width="18" height="14" rx="2" />
-                    <polyline points="3 7 12 13 21 7" />
-                  </svg>
-                </span>
-                <span class="nav-link-title">Subscriptions</span>
               </a>
             </li>
 
@@ -539,24 +520,6 @@
 
 
             <li class="nav-item">
-              <a class="nav-link {{#if (eq 'pages' activeMenu)}} bg-azure-lt {{/if}}" href="/pages" data-bs-toggle="tooltip" data-bs-title="Pages">
-                <span class="nav-link-icon d-md-none d-lg-inline-block">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-file-text">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
-                    <path d="M9 9l1 0" />
-                    <path d="M9 13l6 0" />
-                    <path d="M9 17l6 0" />
-                  </svg>
-                </span>
-              </a>
-            </li>
-
-
-            <li class="nav-item">
               <a class="nav-link {{#if (eq 'blogs' activeMenu)}} bg-azure-lt {{/if}}" href="/blogs"
                 data-bs-toggle="tooltip" data-bs-title="Blogs">
                 <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -569,6 +532,32 @@
                     <path d="M3 6l0 13" />
                     <path d="M12 6l0 13" />
                     <path d="M21 6l0 13" />
+                  </svg>
+                </span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link {{#if (eq 'subscriptions' activeMenu)}} bg-azure-lt {{/if}}" href="/subscriptions"
+                data-bs-toggle="tooltip" data-bs-title="Subscriptions">
+                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-mail"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+                </span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link {{#if (eq 'team' activeMenu)}} bg-azure-lt {{/if}}" href="/team"
+                data-bs-toggle="tooltip" data-bs-title="Team">
+                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-users">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                    <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
                   </svg>
                 </span>
               </a>
@@ -589,36 +578,10 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link {{#if (eq 'team' activeMenu)}} bg-azure-lt {{/if}}" href="/team"
-                data-bs-toggle="tooltip" data-bs-title="Team">
-                <span class="nav-link-icon d-md-none d-lg-inline-block">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-users-group">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M10 13a3 3 0 1 0 -6 0v1h6v-1z" />
-                    <path d="M7 10a3 3 0 1 0 0 -6a3 3 0 0 0 0 6z" />
-                    <path d="M20 21v-1a4 4 0 0 0 -4 -4h-5" />
-                    <path d="M14 7a3 3 0 1 0 0 -6" />
-                  </svg>
-                </span>
-              </a>
-            </li>
-
-            <li class="nav-item">
               <a class="nav-link {{#if (eq 'users' activeMenu)}} bg-azure-lt {{/if}}" href="/users"
                 data-bs-toggle="tooltip" data-bs-title="Users">
                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-treadmill"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 3a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M3 14l4 1l.5 -.5" /><path d="M12 18v-3l-3 -2.923l.75 -5.077" /><path d="M6 10v-2l4 -1l2.5 2.5l2.5 .5" /><path d="M21 22a1 1 0 0 0 -1 -1h-16a1 1 0 0 0 -1 1" /><path d="M18 21l1 -11l2 -1" /></svg>
-                </span>
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link {{#if (eq 'subscriptions' activeMenu)}} bg-azure-lt {{/if}}" href="/subscriptions"
-                data-bs-toggle="tooltip" data-bs-title="Subscriptions">
-                <span class="nav-link-icon d-md-none d-lg-inline-block">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-mail"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
                 </span>
               </a>
             </li>

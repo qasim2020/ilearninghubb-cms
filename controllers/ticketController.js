@@ -1,5 +1,7 @@
 const Ticket = require('../models/Ticket');
 
+const PER_PAGE = 10;
+
 const renderError = (req, res, message) => {
     return res.status(404).render('error', {
         message,
@@ -12,10 +14,29 @@ const renderError = (req, res, message) => {
 
 exports.ticketsIndex = async (req, res) => {
     try {
-        const tickets = await Ticket.find().sort({ isRead: 1, createdAt: -1 }).lean();
+        const requestedPage = parseInt(req.query.page, 10);
+        const currentPage = Number.isFinite(requestedPage) && requestedPage > 0 ? requestedPage : 1;
+
+        const total = await Ticket.countDocuments();
+        const totalPages = Math.max(1, Math.ceil(total / PER_PAGE));
+        const page = Math.min(currentPage, totalPages);
+        const skip = (page - 1) * PER_PAGE;
+
+        const tickets = await Ticket.find()
+            .sort({ isRead: 1, createdAt: -1 })
+            .skip(skip)
+            .limit(PER_PAGE)
+            .lean();
+
+        const unreadTotal = await Ticket.countDocuments({ isRead: { $ne: true } });
 
         res.render('tickets', {
             tickets,
+            currentPage: page,
+            totalPages,
+            prevPage: page > 1 ? page - 1 : null,
+            nextPage: page < totalPages ? page + 1 : null,
+            unreadTotal,
             activeMenu: 'tickets',
             userId: req.session.userId,
             userName: req.session.name,
@@ -30,6 +51,16 @@ exports.ticketsIndex = async (req, res) => {
             userName: req.session.name,
             sidebarCollapsed: req.session.sidebarCollapsed ? req.session.sidebarCollapsed : false,
         });
+    }
+};
+
+exports.markAllRead = async (req, res) => {
+    try {
+        await Ticket.updateMany({ isRead: { $ne: true } }, { isRead: true, readAt: new Date() });
+        return res.json({ success: true });
+    } catch (error) {
+        console.error('Error marking all tickets read:', error);
+        return res.status(500).json({ error: 'Failed to mark all as read' });
     }
 };
 

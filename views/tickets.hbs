@@ -6,9 +6,12 @@
         <div class="page-pretitle">Support</div>
         <h2 class="page-title">Tickets</h2>
       </div>
-      <div class="col-auto ms-auto d-print-none">
-        {{#if (gt unreadTicketsCount 0)}}
-        <span class="badge bg-red-lt text-red">{{unreadTicketsCount}} unread</span>
+      <div class="col-auto ms-auto d-print-none d-flex align-items-center gap-2">
+        {{#if (gt unreadTotal 0)}}
+        <span class="badge bg-red-lt text-red">{{unreadTotal}} unread</span>
+        <button id="mark-all-read-btn" class="btn btn-sm btn-outline-secondary">
+          <i class="ti ti-checks me-1"></i>Mark all as read
+        </button>
         {{/if}}
       </div>
     </div>
@@ -85,6 +88,35 @@
           </tbody>
         </table>
       </div>
+      {{#if (gt totalPages 1)}}
+      <div class="card-footer d-flex align-items-center">
+        <p class="m-0 text-secondary">
+          Page <strong>{{currentPage}}</strong> of <strong>{{totalPages}}</strong>
+        </p>
+        <ul class="pagination m-0 ms-auto">
+          <li class="page-item {{#unless prevPage}}disabled{{/unless}}">
+            <a class="page-link" href="{{#if prevPage}}/tickets?page={{prevPage}}{{else}}#{{/if}}">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M15 6l-6 6l6 6" />
+              </svg>
+              prev
+            </a>
+          </li>
+          <li class="page-item {{#unless nextPage}}disabled{{/unless}}">
+            <a class="page-link" href="{{#if nextPage}}/tickets?page={{nextPage}}{{else}}#{{/if}}">
+              next
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M9 6l6 6l-6 6" />
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+      {{/if}}
     </div>
   </div>
 </div>
@@ -122,6 +154,26 @@
       },
       error: function (xhr) {
         alert(xhr.responseJSON?.error || 'Failed to update ticket');
+      }
+    });
+  });
+
+  $('#mark-all-read-btn').on('click', function () {
+    const $btn = $(this);
+    $btn.prop('disabled', true).text('Marking…');
+    $.ajax({
+      url: '/tickets/mark-all-read',
+      type: 'POST',
+      success: function () {
+        if (window.adminSuccess) {
+          adminSuccess('All tickets marked as read', { reload: true });
+        } else {
+          window.location.reload();
+        }
+      },
+      error: function (xhr) {
+        $btn.prop('disabled', false).html('<i class="ti ti-checks me-1"></i>Mark all as read');
+        alert(xhr.responseJSON?.error || 'Failed to mark all as read');
       }
     });
   });
